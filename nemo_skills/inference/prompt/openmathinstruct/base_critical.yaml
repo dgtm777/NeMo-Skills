@@ -4,6 +4,7 @@ system: ""
 user: |-
     Here are some examples of questions and solutions followed by a new question that you need to solve.
     Make sure to put the answer (and only answer) inside \boxed{{}}.
+    If the problem does not have a solution the answer should be \boxed{{None}}.
 
     {examples}Question:
     {question}
