@@ -40,7 +40,12 @@ def eval_mcq(cfg):
             data = [json.loads(line) for line in fin]
         with open(file, 'wt', encoding='utf-8') as fout:
             for sample in tqdm(data):
-                sample['predicted_answer'] = extract_answer(sample["generation"])
+                sample['predicted_answer'] = None
+                last_boxed = len(sample['generation'])
+                while not sample['predicted_answer'] and last_boxed != -1:
+                    sample['predicted_answer'] = extract_answer(sample["generation"][:last_boxed])
+                    last_boxed = sample["generation"].rfind("\\boxed", 0, last_boxed)
+
                 sample['is_correct'] = sample['predicted_answer'] == sample['expected_answer']
                 fout.write(json.dumps(sample) + "\n")
 
